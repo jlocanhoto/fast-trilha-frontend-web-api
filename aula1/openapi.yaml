@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Swagger Workouts - OpenAPI 3.0
+  description: |-
+    Exercício de Documentação de Web API
+  version: 1.0.0
+servers:
+  - url: http://0.0.0.0:3000/
+tags:
+  - name: workouts
+    description: Everything about users workouts
+paths:
+  <PATH>:  # <- complete aqui
+    <METHOD>:   # <- complete aqui
+      tags:
+        - workouts
+      summary: List user workouts
+      description: List the workouts of the user specified by the `userId`.
+      operationId: listWorkouts
+      parameters:
+        - name:   # <- complete aqui
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            example: 12345
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref:   # <- complete aqui
+                example:
+                  - name: "Mobilidade Quadril Z Sentado"
+                    sets: 3
+                    repetitions: "10-15"
+                    interval: "0:40"
+                  - name: "Cadeira Flexora Bilateral"
+                    sets: 4
+                    repetitions: "6+6"
+                    interval: "2:00"
+                    obs: "Iniciar com uma carga nas primeiras 6 e, nas próximas 6, reduzir a carga"
+        '400':
+          description: Invalid User ID supplied
+        '404':
+          description: User not found
+components:
+  schemas:
+    Workout:
+      required:
+        -  # <- complete aqui
+        -  # <- complete aqui
+        -  # <- complete aqui
+        -  # <- complete aqui
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Mobilidade Quadril Z Sentado"
+        sets:
+          type: integer
+          example: 3
+        repetitions:
+          type: string
+          example: "10-15"
+        interval:
+          type: string
+          example: "0:40"
+        obs:
+          type: string
+          example: "Pausa de 10 segundos na metade das repetições"
