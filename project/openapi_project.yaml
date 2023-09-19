@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: Swagger Web API Project - OpenAPI 3.0
+  description: |-
+    Small project for Web API module conclusion
+  version: 1.0.0
+servers:
+  - url: http://0.0.0.0:3000/
+tags:
+  - name: products
+    description: Everything about supermarket products
+paths:
+  /products/due-date:
+    get:
+      tags:
+        - products
+      summary: List supermarket products near the due date
+      description: List supermarket products which due date are within the requested interval defined by query params `startDate` and `endDate`
+      operationId: listDueDateProducts
+      parameters:
+        - name: startDate
+          in: query
+          description: start date of query interval by products due date
+          required: true
+          schema:
+            type: string
+            format: date
+            example: "2023-12-31"
+        - name: endDate
+          in: query
+          description: end date of query interval by products due date
+          required: true
+          schema:
+            type: string
+            format: date
+            example: "2024-06-30"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                example:
+                  - price: 120.71
+                    qtyInStock: 5
+                    dueDate: "2023-01-15"
+                  - price: 87.59
+                    qtyInStock: 10
+                    dueDate: "2023-02-28"
+                  - price: 17.19
+                    qtyInStock: 100
+                    dueDate: "2023-01-01"
+        '400':
+          description: Invalid `startDate` or `endDate` supplied
+        '401':
+          description: User not authenticated
+components:
+  schemas:
+    Product:
+      required:
+        - price
+        - qtyInStock
+        - dueDate
+      type: object
+      properties:
+        price:
+          type: number
+          example: 125.80
+        qtyInStock:
+          type: integer
+          example: 10
+        dueDate:
+          type: string
+          format: date
+          example: "2025-01-01"
